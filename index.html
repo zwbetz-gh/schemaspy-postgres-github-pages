@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>dvdrental Database</title>
+        <title>pagila Database</title>
         <!-- Tell the browser to be responsive to screen width -->
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <link rel="icon" type="image/png" sizes="16x16" href="favicon.png">
@@ -46,7 +46,7 @@
                 <nav class="navbar navbar-static-top">
                     <div class="container">
                         <div class="navbar-header">
-                            <a href="index.html" class="navbar-brand"><b>dvdrental</b> Database</a>
+                            <a href="index.html" class="navbar-brand"><b>pagila</b> Database</a>
                             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse"><i class="fa fa-bars"></i></button>
                         </div>
 
@@ -77,12 +77,12 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="callout callout-info">
-                                <h4>SchemaSpy Analysis of dvdrental</h4>
-                                <p>Generated on Thu Apr 08 23:40 CDT 2021</p>
+                                <h4>SchemaSpy Analysis of pagila</h4>
+                                <p>Generated on Fri Apr 09 00:12 CDT 2021</p>
                             </div>
                         </div>
                     </div>
-                    <a href="dvdrental.public.xml" title="XML Representation">XML Representation</a><br />
+                    <a href="pagila.public.xml" title="XML Representation">XML Representation</a><br />
                     <a href="insertionOrder.txt" title="Useful for loading data into a database">Insertion Order</a>
                     <a href="deletionOrder.txt" title="Useful for purging data from a database">Deletion Order</a>
                 </section>
@@ -94,7 +94,7 @@
                                 <span class="info-box-icon bg-aqua"><i class="fa fa-table"></i></span>
                                 <div class="info-box-content">
                                     <span class="info-box-text">TABLES</span>
-                                    <span class="info-box-number">15</span>
+                                    <span class="info-box-number">21</span>
                                 </div>
                                 <!-- /.info-box-content -->
                             </div>
@@ -118,7 +118,7 @@
                                 <span class="info-box-icon bg-green"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span></span>
                                 <div class="info-box-content">
                                     <span class="info-box-text">COLUMNS</span>
-                                    <span class="info-box-number">128</span>
+                                    <span class="info-box-number">165</span>
                                 </div>
                                 <!-- /.info-box-content -->
                             </div>
@@ -130,7 +130,7 @@
                                 <span class="info-box-icon bg-yellow"><i class="ion ion-key"></i></span>
                                 <div class="info-box-content">
                                     <span class="info-box-text">Constraints</span>
-                                    <span class="info-box-number">18</span>
+                                    <span class="info-box-number">40</span>
                                 </div>
                                 <!-- /.info-box-content -->
                             </div>
@@ -142,7 +142,7 @@
                                 <span class="info-box-icon bg-red-active"><i class="fa fa-question" aria-hidden="true"></i></span>
                                 <div class="info-box-content">
                                     <span class="info-box-text">Anomalies</span>
-                                    <span class="info-box-number">1</span>
+                                    <span class="info-box-number">7</span>
                                 </div>
                                 <!-- /.info-box-content -->
                             </div>
@@ -177,7 +177,7 @@
                             <span class="label label-primary pull-right"><i class="fa fa-cog fa-2x"></i></span>
                         </div><!-- /.box-header -->
                         <div class="box-body">
-                            <p> <p>standard public schema</p> </p>
+                            <p> <p>Standard public schema</p> </p>
                         </div><!-- /.box-body -->
                     </div>
                     <div class="box box-primary">
@@ -201,7 +201,7 @@
                                 <tbody>
                                     <tr class="tbl even" valign="top">
                                         <td class="detail"><a href="tables/language.html">language</a></td>
-                                        <td class="detail" align="right">1</td>
+                                        <td class="detail" align="right">2</td>
                                         <td class="detail" align="right">0</td>
                                         <td class="detail" align="right">3</td>
                                         <td class="detail" align="right">0</td>
@@ -210,7 +210,7 @@
                                     </tr>
                                     <tr class="tbl even" valign="top">
                                         <td class="detail"><a href="tables/payment.html">payment</a></td>
-                                        <td class="detail" align="right">0</td>
+                                        <td class="detail" align="right">6</td>
                                         <td class="detail" align="right">3</td>
                                         <td class="detail" align="right">6</td>
                                         <td class="detail" align="right">0</td>
@@ -220,8 +220,8 @@
                                     <tr class="tbl even" valign="top">
                                         <td class="detail"><a href="tables/film.html">film</a></td>
                                         <td class="detail" align="right">3</td>
-                                        <td class="detail" align="right">1</td>
-                                        <td class="detail" align="right">13</td>
+                                        <td class="detail" align="right">2</td>
+                                        <td class="detail" align="right">14</td>
                                         <td class="detail" align="right">0</td>
                                         <td class="detail" align="right">Table</td>
                                         <td class="comment detail" style="display: table-cell;"></td>
@@ -231,6 +231,24 @@
                                         <td class="detail" align="right">2</td>
                                         <td class="detail" align="right">0</td>
                                         <td class="detail" align="right">4</td>
+                                        <td class="detail" align="right">200</td>
+                                        <td class="detail" align="right">Table</td>
+                                        <td class="comment detail" style="display: table-cell;"></td>
+                                    </tr>
+                                    <tr class="tbl even" valign="top">
+                                        <td class="detail"><a href="tables/payment_p2007_05.html">payment_p2007_05</a></td>
+                                        <td class="detail" align="right">0</td>
+                                        <td class="detail" align="right">4</td>
+                                        <td class="detail" align="right">6</td>
+                                        <td class="detail" align="right">0</td>
+                                        <td class="detail" align="right">Table</td>
+                                        <td class="comment detail" style="display: table-cell;"></td>
+                                    </tr>
+                                    <tr class="tbl even" valign="top">
+                                        <td class="detail"><a href="tables/payment_p2007_06.html">payment_p2007_06</a></td>
+                                        <td class="detail" align="right">0</td>
+                                        <td class="detail" align="right">4</td>
+                                        <td class="detail" align="right">6</td>
                                         <td class="detail" align="right">0</td>
                                         <td class="detail" align="right">Table</td>
                                         <td class="comment detail" style="display: table-cell;"></td>
@@ -238,7 +256,7 @@
                                     <tr class="tbl even" valign="top">
                                         <td class="detail"><a href="tables/inventory.html">inventory</a></td>
                                         <td class="detail" align="right">1</td>
-                                        <td class="detail" align="right">1</td>
+                                        <td class="detail" align="right">2</td>
                                         <td class="detail" align="right">4</td>
                                         <td class="detail" align="right">0</td>
                                         <td class="detail" align="right">Table</td>
@@ -249,7 +267,7 @@
                                         <td class="detail" align="right">1</td>
                                         <td class="detail" align="right">0</td>
                                         <td class="detail" align="right">3</td>
-                                        <td class="detail" align="right">0</td>
+                                        <td class="detail" align="right">109</td>
                                         <td class="detail" align="right">Table</td>
                                         <td class="comment detail" style="display: table-cell;"></td>
                                     </tr>
@@ -267,7 +285,7 @@
                                         <td class="detail" align="right">1</td>
                                         <td class="detail" align="right">0</td>
                                         <td class="detail" align="right">3</td>
-                                        <td class="detail" align="right">0</td>
+                                        <td class="detail" align="right">16</td>
                                         <td class="detail" align="right">Table</td>
                                         <td class="comment detail" style="display: table-cell;"></td>
                                     </tr>
@@ -282,7 +300,7 @@
                                     </tr>
                                     <tr class="tbl even" valign="top">
                                         <td class="detail"><a href="tables/store.html">store</a></td>
-                                        <td class="detail" align="right">0</td>
+                                        <td class="detail" align="right">3</td>
                                         <td class="detail" align="right">2</td>
                                         <td class="detail" align="right">4</td>
                                         <td class="detail" align="right">0</td>
@@ -291,8 +309,8 @@
                                     </tr>
                                     <tr class="tbl even" valign="top">
                                         <td class="detail"><a href="tables/staff.html">staff</a></td>
-                                        <td class="detail" align="right">3</td>
-                                        <td class="detail" align="right">1</td>
+                                        <td class="detail" align="right">9</td>
+                                        <td class="detail" align="right">2</td>
                                         <td class="detail" align="right">11</td>
                                         <td class="detail" align="right">0</td>
                                         <td class="detail" align="right">Table</td>
@@ -300,8 +318,8 @@
                                     </tr>
                                     <tr class="tbl even" valign="top">
                                         <td class="detail"><a href="tables/customer.html">customer</a></td>
+                                        <td class="detail" align="right">8</td>
                                         <td class="detail" align="right">2</td>
-                                        <td class="detail" align="right">1</td>
                                         <td class="detail" align="right">10</td>
                                         <td class="detail" align="right">0</td>
                                         <td class="detail" align="right">Table</td>
@@ -309,7 +327,7 @@
                                     </tr>
                                     <tr class="tbl even" valign="top">
                                         <td class="detail"><a href="tables/rental.html">rental</a></td>
-                                        <td class="detail" align="right">1</td>
+                                        <td class="detail" align="right">7</td>
                                         <td class="detail" align="right">3</td>
                                         <td class="detail" align="right">7</td>
                                         <td class="detail" align="right">0</td>
@@ -326,10 +344,46 @@
                                         <td class="comment detail" style="display: table-cell;"></td>
                                     </tr>
                                     <tr class="tbl even" valign="top">
+                                        <td class="detail"><a href="tables/payment_p2007_03.html">payment_p2007_03</a></td>
+                                        <td class="detail" align="right">0</td>
+                                        <td class="detail" align="right">4</td>
+                                        <td class="detail" align="right">6</td>
+                                        <td class="detail" align="right">0</td>
+                                        <td class="detail" align="right">Table</td>
+                                        <td class="comment detail" style="display: table-cell;"></td>
+                                    </tr>
+                                    <tr class="tbl even" valign="top">
                                         <td class="detail"><a href="tables/film_category.html">film_category</a></td>
                                         <td class="detail" align="right">0</td>
                                         <td class="detail" align="right">2</td>
                                         <td class="detail" align="right">3</td>
+                                        <td class="detail" align="right">0</td>
+                                        <td class="detail" align="right">Table</td>
+                                        <td class="comment detail" style="display: table-cell;"></td>
+                                    </tr>
+                                    <tr class="tbl even" valign="top">
+                                        <td class="detail"><a href="tables/payment_p2007_04.html">payment_p2007_04</a></td>
+                                        <td class="detail" align="right">0</td>
+                                        <td class="detail" align="right">4</td>
+                                        <td class="detail" align="right">6</td>
+                                        <td class="detail" align="right">0</td>
+                                        <td class="detail" align="right">Table</td>
+                                        <td class="comment detail" style="display: table-cell;"></td>
+                                    </tr>
+                                    <tr class="tbl even" valign="top">
+                                        <td class="detail"><a href="tables/payment_p2007_01.html">payment_p2007_01</a></td>
+                                        <td class="detail" align="right">0</td>
+                                        <td class="detail" align="right">4</td>
+                                        <td class="detail" align="right">6</td>
+                                        <td class="detail" align="right">0</td>
+                                        <td class="detail" align="right">Table</td>
+                                        <td class="comment detail" style="display: table-cell;"></td>
+                                    </tr>
+                                    <tr class="tbl even" valign="top">
+                                        <td class="detail"><a href="tables/payment_p2007_02.html">payment_p2007_02</a></td>
+                                        <td class="detail" align="right">0</td>
+                                        <td class="detail" align="right">4</td>
+                                        <td class="detail" align="right">6</td>
                                         <td class="detail" align="right">0</td>
                                         <td class="detail" align="right">Table</td>
                                         <td class="comment detail" style="display: table-cell;"></td>

@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>rental - dvdrental Database</title>
+        <title>rental - pagila Database</title>
         <!-- Tell the browser to be responsive to screen width -->
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <link rel="icon" type="image/png" sizes="16x16" href="../favicon.png">
@@ -46,7 +46,7 @@
                 <nav class="navbar navbar-static-top">
                     <div class="container">
                         <div class="navbar-header">
-                            <a href="../index.html" class="navbar-brand"><b>dvdrental</b> Database</a>
+                            <a href="../index.html" class="navbar-brand"><b>pagila</b> Database</a>
                             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse"><i class="fa fa-bars"></i></button>
                         </div>
 
@@ -114,6 +114,30 @@
                                             <tr>
                                                 <td title="payment.rental_id references rental.rental_id via payment_rental_id_fkey"><a href='payment.html'>payment</a><span class='relatedKey'>.rental_id</span></td>
                                                 <td class="constraint detail">payment_rental_id_fkey<span title='Null on delete:&#10;Foreign key to parent set to NULL when parent deleted'>N</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td title="payment_p2007_01.rental_id references rental.rental_id via payment_p2007_01_rental_id_fkey"><a href='payment_p2007_01.html'>payment_p2007_01</a><span class='relatedKey'>.rental_id</span></td>
+                                                <td class="constraint detail">payment_p2007_01_rental_id_fkey<span title='Restrict delete:&#10;Parent cannot be deleted if children exist'>R</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td title="payment_p2007_02.rental_id references rental.rental_id via payment_p2007_02_rental_id_fkey"><a href='payment_p2007_02.html'>payment_p2007_02</a><span class='relatedKey'>.rental_id</span></td>
+                                                <td class="constraint detail">payment_p2007_02_rental_id_fkey<span title='Restrict delete:&#10;Parent cannot be deleted if children exist'>R</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td title="payment_p2007_03.rental_id references rental.rental_id via payment_p2007_03_rental_id_fkey"><a href='payment_p2007_03.html'>payment_p2007_03</a><span class='relatedKey'>.rental_id</span></td>
+                                                <td class="constraint detail">payment_p2007_03_rental_id_fkey<span title='Restrict delete:&#10;Parent cannot be deleted if children exist'>R</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td title="payment_p2007_04.rental_id references rental.rental_id via payment_p2007_04_rental_id_fkey"><a href='payment_p2007_04.html'>payment_p2007_04</a><span class='relatedKey'>.rental_id</span></td>
+                                                <td class="constraint detail">payment_p2007_04_rental_id_fkey<span title='Restrict delete:&#10;Parent cannot be deleted if children exist'>R</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td title="payment_p2007_05.rental_id references rental.rental_id via payment_p2007_05_rental_id_fkey"><a href='payment_p2007_05.html'>payment_p2007_05</a><span class='relatedKey'>.rental_id</span></td>
+                                                <td class="constraint detail">payment_p2007_05_rental_id_fkey<span title='Restrict delete:&#10;Parent cannot be deleted if children exist'>R</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td title="payment_p2007_06.rental_id references rental.rental_id via payment_p2007_06_rental_id_fkey"><a href='payment_p2007_06.html'>payment_p2007_06</a><span class='relatedKey'>.rental_id</span></td>
+                                                <td class="constraint detail">payment_p2007_06_rental_id_fkey<span title='Restrict delete:&#10;Parent cannot be deleted if children exist'>R</span></td>
                                             </tr>
                                         </table>
                                     </td>
@@ -213,8 +237,8 @@
                                     <td>
                                         <table border='0' cellspacing='0' cellpadding='0'>
                                             <tr>
-                                                <td title="rental.staff_id references staff.staff_id via rental_staff_id_key"><a href='staff.html'>staff</a><span class='relatedKey'>.staff_id</span></td>
-                                                <td class="constraint detail">rental_staff_id_key<span title='Restrict delete:&#10;Parent cannot be deleted if children exist'>R</span></td>
+                                                <td title="rental.staff_id references staff.staff_id via rental_staff_id_fkey"><a href='staff.html'>staff</a><span class='relatedKey'>.staff_id</span></td>
+                                                <td class="constraint detail">rental_staff_id_fkey<span title='Restrict delete:&#10;Parent cannot be deleted if children exist'>R</span></td>
                                             </tr>
                                         </table>
                                     </td>
@@ -298,6 +322,8 @@
                                 <ul class="nav nav-tabs pull-left ui-sortable-handle">
                                     <li class="active"><a href="#oneDegreeImg-chart" data-toggle="tab" aria-expanded="true">One</a></li>
                                     <li class=""><a href="#twodegreesDegreeImg-chart" data-toggle="tab" aria-expanded="true">Two degrees</a></li>
+                                    <li class=""><a href="#oneimpliedDegreeImg-chart" data-toggle="tab" aria-expanded="true">One implied</a></li>
+                                    <li class=""><a href="#twoimpliedDegreeImg-chart" data-toggle="tab" aria-expanded="true">Two implied</a></li>
                                 </ul>
                                 <div class="tab-content no-padding">
                                     <div class="chart tab-pane active" id="oneDegreeImg-chart" style="position: relative; overflow-x:auto;">
@@ -307,6 +333,14 @@
                                     <div class="chart tab-pane " id="twodegreesDegreeImg-chart" style="position: relative; overflow-x:auto;">
                                         
                                         <a name='diagram'><object type="image/svg+xml" id="twodegreesDegreeImg" data="../diagrams/tables/rental.2degrees.svg" class="diagram" border="0" align="left"></object></a>
+                                    </div>
+                                    <div class="chart tab-pane " id="oneimpliedDegreeImg-chart" style="position: relative; overflow-x:auto;">
+                                        
+                                        <a name='diagram'><object type="image/svg+xml" id="oneimpliedDegreeImg" data="../diagrams/tables/rental.implied1degrees.svg" class="diagram" border="0" align="left"></object></a>
+                                    </div>
+                                    <div class="chart tab-pane " id="twoimpliedDegreeImg-chart" style="position: relative; overflow-x:auto;">
+                                        
+                                        <a name='diagram'><object type="image/svg+xml" id="twoimpliedDegreeImg" data="../diagrams/tables/rental.implied2degrees.svg" class="diagram" border="0" align="left"></object></a>
                                     </div>
                                 </div>
                             </div>

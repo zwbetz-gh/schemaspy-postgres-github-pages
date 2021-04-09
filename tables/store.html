@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>store - dvdrental Database</title>
+        <title>store - pagila Database</title>
         <!-- Tell the browser to be responsive to screen width -->
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <link rel="icon" type="image/png" sizes="16x16" href="../favicon.png">
@@ -46,7 +46,7 @@
                 <nav class="navbar navbar-static-top">
                     <div class="container">
                         <div class="navbar-header">
-                            <a href="../index.html" class="navbar-brand"><b>dvdrental</b> Database</a>
+                            <a href="../index.html" class="navbar-brand"><b>pagila</b> Database</a>
                             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse"><i class="fa fa-bars"></i></button>
                         </div>
 
@@ -111,6 +111,18 @@
                                     <td>nextval(&#39;store_store_id_seq&#39;::regclass)</td>
                                     <td>
                                         <table border='0' cellspacing='0' cellpadding='0'>
+                                            <tr>
+                                                <td title="customer.store_id references store.store_id via customer_store_id_fkey"><a href='customer.html'>customer</a><span class='relatedKey'>.store_id</span></td>
+                                                <td class="constraint detail">customer_store_id_fkey<span title='Restrict delete:&#10;Parent cannot be deleted if children exist'>R</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td title="inventory.store_id references store.store_id via inventory_store_id_fkey"><a href='inventory.html'>inventory</a><span class='relatedKey'>.store_id</span></td>
+                                                <td class="constraint detail">inventory_store_id_fkey<span title='Restrict delete:&#10;Parent cannot be deleted if children exist'>R</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td title="staff.store_id references store.store_id via staff_store_id_fkey"><a href='staff.html'>staff</a><span class='relatedKey'>.store_id</span></td>
+                                                <td class="constraint detail">staff_store_id_fkey<span title='Restrict delete:&#10;Parent cannot be deleted if children exist'>R</span></td>
+                                            </tr>
                                         </table>
                                     </td>
                                     <td>

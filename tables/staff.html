@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>staff - dvdrental Database</title>
+        <title>staff - pagila Database</title>
         <!-- Tell the browser to be responsive to screen width -->
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <link rel="icon" type="image/png" sizes="16x16" href="../favicon.png">
@@ -46,7 +46,7 @@
                 <nav class="navbar navbar-static-top">
                     <div class="container">
                         <div class="navbar-header">
-                            <a href="../index.html" class="navbar-brand"><b>dvdrental</b> Database</a>
+                            <a href="../index.html" class="navbar-brand"><b>pagila</b> Database</a>
                             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse"><i class="fa fa-bars"></i></button>
                         </div>
 
@@ -116,8 +116,32 @@
                                                 <td class="constraint detail">payment_staff_id_fkey<span title='Restrict delete:&#10;Parent cannot be deleted if children exist'>R</span></td>
                                             </tr>
                                             <tr>
-                                                <td title="rental.staff_id references staff.staff_id via rental_staff_id_key"><a href='rental.html'>rental</a><span class='relatedKey'>.staff_id</span></td>
-                                                <td class="constraint detail">rental_staff_id_key<span title='Restrict delete:&#10;Parent cannot be deleted if children exist'>R</span></td>
+                                                <td title="payment_p2007_01.staff_id references staff.staff_id via payment_p2007_01_staff_id_fkey"><a href='payment_p2007_01.html'>payment_p2007_01</a><span class='relatedKey'>.staff_id</span></td>
+                                                <td class="constraint detail">payment_p2007_01_staff_id_fkey<span title='Restrict delete:&#10;Parent cannot be deleted if children exist'>R</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td title="payment_p2007_02.staff_id references staff.staff_id via payment_p2007_02_staff_id_fkey"><a href='payment_p2007_02.html'>payment_p2007_02</a><span class='relatedKey'>.staff_id</span></td>
+                                                <td class="constraint detail">payment_p2007_02_staff_id_fkey<span title='Restrict delete:&#10;Parent cannot be deleted if children exist'>R</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td title="payment_p2007_03.staff_id references staff.staff_id via payment_p2007_03_staff_id_fkey"><a href='payment_p2007_03.html'>payment_p2007_03</a><span class='relatedKey'>.staff_id</span></td>
+                                                <td class="constraint detail">payment_p2007_03_staff_id_fkey<span title='Restrict delete:&#10;Parent cannot be deleted if children exist'>R</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td title="payment_p2007_04.staff_id references staff.staff_id via payment_p2007_04_staff_id_fkey"><a href='payment_p2007_04.html'>payment_p2007_04</a><span class='relatedKey'>.staff_id</span></td>
+                                                <td class="constraint detail">payment_p2007_04_staff_id_fkey<span title='Restrict delete:&#10;Parent cannot be deleted if children exist'>R</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td title="payment_p2007_05.staff_id references staff.staff_id via payment_p2007_05_staff_id_fkey"><a href='payment_p2007_05.html'>payment_p2007_05</a><span class='relatedKey'>.staff_id</span></td>
+                                                <td class="constraint detail">payment_p2007_05_staff_id_fkey<span title='Restrict delete:&#10;Parent cannot be deleted if children exist'>R</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td title="payment_p2007_06.staff_id references staff.staff_id via payment_p2007_06_staff_id_fkey"><a href='payment_p2007_06.html'>payment_p2007_06</a><span class='relatedKey'>.staff_id</span></td>
+                                                <td class="constraint detail">payment_p2007_06_staff_id_fkey<span title='Restrict delete:&#10;Parent cannot be deleted if children exist'>R</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td title="rental.staff_id references staff.staff_id via rental_staff_id_fkey"><a href='rental.html'>rental</a><span class='relatedKey'>.staff_id</span></td>
+                                                <td class="constraint detail">rental_staff_id_fkey<span title='Restrict delete:&#10;Parent cannot be deleted if children exist'>R</span></td>
                                             </tr>
                                             <tr>
                                                 <td title="store.manager_staff_id references staff.staff_id via store_manager_staff_id_fkey"><a href='store.html'>store</a><span class='relatedKey'>.manager_staff_id</span></td>
@@ -204,7 +228,7 @@
                                     <td></td>
                                 </tr>
                                 <tr>
-                                    <td><span id="store_id">store_id</span></td>
+                                    <td class='foreignKey' title='Foreign Key'><i class='icon ion-key iconkey' style='padding-left: 5px;'></i><span id="store_id">store_id</span></td>
                                     <td>int2</td>
                                     <td>5</td>
                                     <td title=''></td>
@@ -216,6 +240,10 @@
                                     </td>
                                     <td>
                                         <table border='0' cellspacing='0' cellpadding='0'>
+                                            <tr>
+                                                <td title="staff.store_id references store.store_id via staff_store_id_fkey"><a href='store.html'>store</a><span class='relatedKey'>.store_id</span></td>
+                                                <td class="constraint detail">staff_store_id_fkey<span title='Restrict delete:&#10;Parent cannot be deleted if children exist'>R</span></td>
+                                            </tr>
                                         </table>
                                     </td>
                                     <td></td>
@@ -354,6 +382,8 @@
                                 <ul class="nav nav-tabs pull-left ui-sortable-handle">
                                     <li class="active"><a href="#oneDegreeImg-chart" data-toggle="tab" aria-expanded="true">One</a></li>
                                     <li class=""><a href="#twodegreesDegreeImg-chart" data-toggle="tab" aria-expanded="true">Two degrees</a></li>
+                                    <li class=""><a href="#oneimpliedDegreeImg-chart" data-toggle="tab" aria-expanded="true">One implied</a></li>
+                                    <li class=""><a href="#twoimpliedDegreeImg-chart" data-toggle="tab" aria-expanded="true">Two implied</a></li>
                                 </ul>
                                 <div class="tab-content no-padding">
                                     <div class="chart tab-pane active" id="oneDegreeImg-chart" style="position: relative; overflow-x:auto;">
@@ -363,6 +393,14 @@
                                     <div class="chart tab-pane " id="twodegreesDegreeImg-chart" style="position: relative; overflow-x:auto;">
                                         
                                         <a name='diagram'><object type="image/svg+xml" id="twodegreesDegreeImg" data="../diagrams/tables/staff.2degrees.svg" class="diagram" border="0" align="left"></object></a>
+                                    </div>
+                                    <div class="chart tab-pane " id="oneimpliedDegreeImg-chart" style="position: relative; overflow-x:auto;">
+                                        
+                                        <a name='diagram'><object type="image/svg+xml" id="oneimpliedDegreeImg" data="../diagrams/tables/staff.implied1degrees.svg" class="diagram" border="0" align="left"></object></a>
+                                    </div>
+                                    <div class="chart tab-pane " id="twoimpliedDegreeImg-chart" style="position: relative; overflow-x:auto;">
+                                        
+                                        <a name='diagram'><object type="image/svg+xml" id="twoimpliedDegreeImg" data="../diagrams/tables/staff.implied2degrees.svg" class="diagram" border="0" align="left"></object></a>
                                     </div>
                                 </div>
                             </div>
