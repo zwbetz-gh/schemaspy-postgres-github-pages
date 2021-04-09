@@ -1,3 +1,4 @@
 local_git_config.sh
 output/
 .DS_Store
+.env

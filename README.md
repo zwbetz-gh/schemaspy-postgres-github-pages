@@ -11,7 +11,7 @@
 1. Install Python version 3 or higher
 1. Install GitHub Pages Import package
     ```
-    pip install ghp-import;
+    pip install ghp-import
     ```
 1. Copy file `.env.sample` to file `.env`
 1. If needed, change the database connection values in file `.env`
@@ -33,16 +33,16 @@
     docker-compose logs postgres
     ```
 
-## Serve SchemaSpy
-
-```
-./task_serve.sh
-```
-
 ## Build SchemaSpy
 
 ```
 ./task_build.sh
+```
+
+## Serve SchemaSpy
+
+```
+./task_serve.sh
 ```
 
 ## Deploy SchemaSpy to GitHub Pages
@@ -53,5 +53,5 @@
 
 ## Credits
 
-- Thank you to [@morenoh149](https://github.com/morenoh149) for the [sample pagila database](https://github.com/morenoh149/postgresDBSamples/tree/master/pagila-0.10.1)
+- Thank you to [@morenoh149](https://github.com/morenoh149) for the sample [pagila](https://github.com/morenoh149/postgresDBSamples/tree/master/pagila-0.10.1) database
   
