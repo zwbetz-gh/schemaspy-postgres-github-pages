@@ -2,7 +2,7 @@
 
 ## GitHub Pages URL
 
-TODO
+<https://zwbetz-gh.github.io/schemaspy-postgres-github-pages/>
 
 ## One-Time Setup
 
@@ -18,12 +18,20 @@ TODO
 
 **Note:** There's no need to download the SchemaSpy or Postgres driver `.jar` files. They're included under the `lib` dir
 
-## Init the Sample Database
+## Setup Sample Database
 
-```
-docker-compose up --build -d;
-docker-compose run postgres ./task_init_database.sh;
-```
+1. Spin up Postgres
+   ```
+   docker-compose up --build -d
+   ```
+1. Init the database
+    ```
+    docker-compose run postgres ./task_init_database.sh
+    ```
+1. View Postgres logs
+    ```
+    docker-compose logs postgres
+    ```
 
 ## Serve SchemaSpy
 
@@ -45,4 +53,5 @@ docker-compose run postgres ./task_init_database.sh;
 
 ## Credits
 
-- Thank you to <https://www.postgresqltutorial.com/postgresql-sample-database/> for the sample database
+- Thank you to [@morenoh149](https://github.com/morenoh149) for the [sample pagila database](https://github.com/morenoh149/postgresDBSamples/tree/master/pagila-0.10.1)
+  

@@ -6,6 +6,8 @@ REQUIRED_TOOLS=(
 
 DOTFILE=".env"
 SCHEMASPY_JAR="lib/schemaspy/schemaspy-6.1.0.jar"
+# Run: java -jar lib/schemaspy/schemaspy-6.1.0.jar -dbhelp
+# Even though we are connecting to Postgres version 13, the highest database type listed is pgsql11 ... shrug
 DATABASE_TYPE="pgsql11"
 JDBC_DRIVERS="lib/driver"
 DIR="output"
