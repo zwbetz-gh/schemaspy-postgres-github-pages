@@ -1,0 +1,15 @@
+payment
+store
+film_category
+film_actor
+rental
+inventory
+customer
+staff
+address
+city
+film
+language
+country
+category
+actor

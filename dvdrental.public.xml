@@ -1,0 +1,593 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<database name="dvdrental" schema="public" type="PostgreSQL - 13.2 (Debian 13.2-1.pgdg100+1)">
+   <sequences>
+      <sequence increment="1" name="actor_actor_id_seq" startValue="1"/>
+      <sequence increment="1" name="address_address_id_seq" startValue="1"/>
+      <sequence increment="1" name="category_category_id_seq" startValue="1"/>
+      <sequence increment="1" name="city_city_id_seq" startValue="1"/>
+      <sequence increment="1" name="country_country_id_seq" startValue="1"/>
+      <sequence increment="1" name="customer_customer_id_seq" startValue="1"/>
+      <sequence increment="1" name="film_film_id_seq" startValue="1"/>
+      <sequence increment="1" name="inventory_inventory_id_seq" startValue="1"/>
+      <sequence increment="1" name="language_language_id_seq" startValue="1"/>
+      <sequence increment="1" name="payment_payment_id_seq" startValue="1"/>
+      <sequence increment="1" name="rental_rental_id_seq" startValue="1"/>
+      <sequence increment="1" name="staff_staff_id_seq" startValue="1"/>
+      <sequence increment="1" name="store_store_id_seq" startValue="1"/>
+   </sequences>
+   <tables>
+      <table name="actor" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('actor_actor_id_seq'::regclass)" digits="0" id="0" name="actor_id" nullable="false" remarks="" size="10" type="serial" typeCode="4">
+            <child column="actor_id" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" schema="public" table="actor_info"/>
+            <child column="actor_id" foreignKey="film_actor_actor_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="film_actor"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="first_name" nullable="false" remarks="" size="45" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="last_name" nullable="false" remarks="" size="45" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="now()" digits="6" id="3" name="last_update" nullable="false" remarks="" size="29" type="timestamp" typeCode="93"/>
+         <primaryKey column="actor_id" sequenceNumberInPK="1"/>
+         <index name="actor_pkey" unique="true">
+            <column ascending="true" name="actor_id"/>
+         </index>
+         <index name="idx_actor_last_name" unique="false">
+            <column ascending="true" name="last_name"/>
+         </index>
+      </table>
+      <table name="actor_info" numRows="0" remarks="" schema="public" type="VIEW" viewSql=" SELECT a.actor_id,&#10;    a.first_name,&#10;    a.last_name,&#10;    group_concat(DISTINCT (((c.name)::text || ': '::text) || ( SELECT group_concat((f.title)::text) AS group_concat&#10;           FROM ((film f&#10;             JOIN film_category fc_1 ON ((f.film_id = fc_1.film_id)))&#10;             JOIN film_actor fa_1 ON ((f.film_id = fa_1.film_id)))&#10;          WHERE ((fc_1.category_id = c.category_id) AND (fa_1.actor_id = a.actor_id))&#10;          GROUP BY fa_1.actor_id))) AS film_info&#10;   FROM (((actor a&#10;     LEFT JOIN film_actor fa ON ((a.actor_id = fa.actor_id)))&#10;     LEFT JOIN film_category fc ON ((fa.film_id = fc.film_id)))&#10;     LEFT JOIN category c ON ((fc.category_id = c.category_id)))&#10;  GROUP BY a.actor_id, a.first_name, a.last_name;">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="actor_id" nullable="true" remarks="" size="10" type="int4" typeCode="4">
+            <parent column="actor_id" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" schema="public" table="actor"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="first_name" nullable="true" remarks="" size="45" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="last_name" nullable="true" remarks="" size="45" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="film_info" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+      </table>
+      <table name="address" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('address_address_id_seq'::regclass)" digits="0" id="0" name="address_id" nullable="false" remarks="" size="10" type="serial" typeCode="4">
+            <child column="address_id" foreignKey="customer_address_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="customer"/>
+            <child column="address_id" foreignKey="staff_address_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="staff"/>
+            <child column="address_id" foreignKey="store_address_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="store"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="address" nullable="false" remarks="" size="50" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="address2" nullable="true" remarks="" size="50" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="district" nullable="false" remarks="" size="20" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="city_id" nullable="false" remarks="" size="5" type="int2" typeCode="5">
+            <parent column="city_id" foreignKey="fk_address_city" implied="false" onDeleteCascade="false" schema="public" table="city"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="5" name="postal_code" nullable="true" remarks="" size="10" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="6" name="phone" nullable="false" remarks="" size="20" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="now()" digits="6" id="7" name="last_update" nullable="false" remarks="" size="29" type="timestamp" typeCode="93"/>
+         <primaryKey column="address_id" sequenceNumberInPK="1"/>
+         <index name="address_pkey" unique="true">
+            <column ascending="true" name="address_id"/>
+         </index>
+         <index name="idx_fk_city_id" unique="false">
+            <column ascending="true" name="city_id"/>
+         </index>
+      </table>
+      <table name="category" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('category_category_id_seq'::regclass)" digits="0" id="0" name="category_id" nullable="false" remarks="" size="10" type="serial" typeCode="4">
+            <child column="category_id" foreignKey="film_category_category_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="film_category"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="name" nullable="false" remarks="" size="25" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="now()" digits="6" id="2" name="last_update" nullable="false" remarks="" size="29" type="timestamp" typeCode="93"/>
+         <primaryKey column="category_id" sequenceNumberInPK="1"/>
+         <index name="category_pkey" unique="true">
+            <column ascending="true" name="category_id"/>
+         </index>
+      </table>
+      <table name="city" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('city_city_id_seq'::regclass)" digits="0" id="0" name="city_id" nullable="false" remarks="" size="10" type="serial" typeCode="4">
+            <child column="city_id" foreignKey="fk_address_city" implied="false" onDeleteCascade="false" schema="public" table="address"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="city" nullable="false" remarks="" size="50" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="country_id" nullable="false" remarks="" size="5" type="int2" typeCode="5">
+            <parent column="country_id" foreignKey="fk_city" implied="false" onDeleteCascade="false" schema="public" table="country"/>
+         </column>
+         <column autoUpdated="false" defaultValue="now()" digits="6" id="3" name="last_update" nullable="false" remarks="" size="29" type="timestamp" typeCode="93"/>
+         <primaryKey column="city_id" sequenceNumberInPK="1"/>
+         <index name="city_pkey" unique="true">
+            <column ascending="true" name="city_id"/>
+         </index>
+         <index name="idx_fk_country_id" unique="false">
+            <column ascending="true" name="country_id"/>
+         </index>
+      </table>
+      <table name="country" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('country_country_id_seq'::regclass)" digits="0" id="0" name="country_id" nullable="false" remarks="" size="10" type="serial" typeCode="4">
+            <child column="country_id" foreignKey="fk_city" implied="false" onDeleteCascade="false" schema="public" table="city"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="country" nullable="false" remarks="" size="50" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="now()" digits="6" id="2" name="last_update" nullable="false" remarks="" size="29" type="timestamp" typeCode="93"/>
+         <primaryKey column="country_id" sequenceNumberInPK="1"/>
+         <index name="country_pkey" unique="true">
+            <column ascending="true" name="country_id"/>
+         </index>
+      </table>
+      <table name="customer" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('customer_customer_id_seq'::regclass)" digits="0" id="0" name="customer_id" nullable="false" remarks="" size="10" type="serial" typeCode="4">
+            <child column="customer_id" foreignKey="payment_customer_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="payment"/>
+            <child column="customer_id" foreignKey="rental_customer_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="rental"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="store_id" nullable="false" remarks="" size="5" type="int2" typeCode="5"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="first_name" nullable="false" remarks="" size="45" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="last_name" nullable="false" remarks="" size="45" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="email" nullable="true" remarks="" size="50" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="5" name="address_id" nullable="false" remarks="" size="5" type="int2" typeCode="5">
+            <parent column="address_id" foreignKey="customer_address_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="address"/>
+         </column>
+         <column autoUpdated="false" defaultValue="true" digits="0" id="6" name="activebool" nullable="false" remarks="" size="1" type="bool" typeCode="-7"/>
+         <column autoUpdated="false" defaultValue="('now'::text)::date" digits="0" id="7" name="create_date" nullable="false" remarks="" size="13" type="date" typeCode="91"/>
+         <column autoUpdated="false" defaultValue="now()" digits="6" id="8" name="last_update" nullable="true" remarks="" size="29" type="timestamp" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="9" name="active" nullable="true" remarks="" size="10" type="int4" typeCode="4"/>
+         <primaryKey column="customer_id" sequenceNumberInPK="1"/>
+         <index name="customer_pkey" unique="true">
+            <column ascending="true" name="customer_id"/>
+         </index>
+         <index name="idx_fk_address_id" unique="false">
+            <column ascending="true" name="address_id"/>
+         </index>
+         <index name="idx_fk_store_id" unique="false">
+            <column ascending="true" name="store_id"/>
+         </index>
+         <index name="idx_last_name" unique="false">
+            <column ascending="true" name="last_name"/>
+         </index>
+      </table>
+      <table name="customer_list" numRows="0" remarks="" schema="public" type="VIEW" viewSql=" SELECT cu.customer_id AS id,&#10;    (((cu.first_name)::text || ' '::text) || (cu.last_name)::text) AS name,&#10;    a.address,&#10;    a.postal_code AS &quot;zip code&quot;,&#10;    a.phone,&#10;    city.city,&#10;    country.country,&#10;        CASE&#10;            WHEN cu.activebool THEN 'active'::text&#10;            ELSE ''::text&#10;        END AS notes,&#10;    cu.store_id AS sid&#10;   FROM (((customer cu&#10;     JOIN address a ON ((cu.address_id = a.address_id)))&#10;     JOIN city ON ((a.city_id = city.city_id)))&#10;     JOIN country ON ((city.country_id = country.country_id)));">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="id" nullable="true" remarks="" size="10" type="int4" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="name" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="address" nullable="true" remarks="" size="50" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="zip code" nullable="true" remarks="" size="10" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="phone" nullable="true" remarks="" size="20" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="5" name="city" nullable="true" remarks="" size="50" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="6" name="country" nullable="true" remarks="" size="50" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="7" name="notes" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="8" name="sid" nullable="true" remarks="" size="5" type="int2" typeCode="5"/>
+      </table>
+      <table name="film" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('film_film_id_seq'::regclass)" digits="0" id="0" name="film_id" nullable="false" remarks="" size="10" type="serial" typeCode="4">
+            <child column="film_id" foreignKey="film_actor_film_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="film_actor"/>
+            <child column="film_id" foreignKey="film_category_film_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="film_category"/>
+            <child column="film_id" foreignKey="inventory_film_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="inventory"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="title" nullable="false" remarks="" size="255" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="description" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="release_year" nullable="true" remarks="" size="10" type="year" typeCode="2001"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="language_id" nullable="false" remarks="" size="5" type="int2" typeCode="5">
+            <parent column="language_id" foreignKey="film_language_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="language"/>
+         </column>
+         <column autoUpdated="false" defaultValue="3" digits="0" id="5" name="rental_duration" nullable="false" remarks="" size="5" type="int2" typeCode="5"/>
+         <column autoUpdated="false" defaultValue="4.99" digits="2" id="6" name="rental_rate" nullable="false" remarks="" size="4" type="numeric" typeCode="2"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="7" name="length" nullable="true" remarks="" size="5" type="int2" typeCode="5"/>
+         <column autoUpdated="false" defaultValue="19.99" digits="2" id="8" name="replacement_cost" nullable="false" remarks="" size="5" type="numeric" typeCode="2"/>
+         <column autoUpdated="false" defaultValue="'G'::mpaa_rating" digits="0" id="9" name="rating" nullable="true" remarks="" size="2147483647" type="mpaa_rating" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="now()" digits="6" id="10" name="last_update" nullable="false" remarks="" size="29" type="timestamp" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="11" name="special_features" nullable="true" remarks="" size="2147483647" type="_text" typeCode="2003"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="12" name="fulltext" nullable="false" remarks="" size="2147483647" type="tsvector" typeCode="1111"/>
+         <primaryKey column="film_id" sequenceNumberInPK="1"/>
+         <index name="film_pkey" unique="true">
+            <column ascending="true" name="film_id"/>
+         </index>
+         <index name="film_fulltext_idx" unique="false">
+            <column ascending="true" name="fulltext"/>
+         </index>
+         <index name="idx_fk_language_id" unique="false">
+            <column ascending="true" name="language_id"/>
+         </index>
+         <index name="idx_title" unique="false">
+            <column ascending="true" name="title"/>
+         </index>
+      </table>
+      <table name="film_actor" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="actor_id" nullable="false" remarks="" size="5" type="int2" typeCode="5">
+            <parent column="actor_id" foreignKey="film_actor_actor_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="actor"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="film_id" nullable="false" remarks="" size="5" type="int2" typeCode="5">
+            <parent column="film_id" foreignKey="film_actor_film_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="film"/>
+         </column>
+         <column autoUpdated="false" defaultValue="now()" digits="6" id="2" name="last_update" nullable="false" remarks="" size="29" type="timestamp" typeCode="93"/>
+         <primaryKey column="actor_id" sequenceNumberInPK="1"/>
+         <primaryKey column="film_id" sequenceNumberInPK="2"/>
+         <index name="film_actor_pkey" unique="true">
+            <column ascending="true" name="actor_id"/>
+            <column ascending="true" name="film_id"/>
+         </index>
+         <index name="idx_fk_film_id" unique="false">
+            <column ascending="true" name="film_id"/>
+         </index>
+      </table>
+      <table name="film_category" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="film_id" nullable="false" remarks="" size="5" type="int2" typeCode="5">
+            <parent column="film_id" foreignKey="film_category_film_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="film"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="category_id" nullable="false" remarks="" size="5" type="int2" typeCode="5">
+            <parent column="category_id" foreignKey="film_category_category_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="category"/>
+         </column>
+         <column autoUpdated="false" defaultValue="now()" digits="6" id="2" name="last_update" nullable="false" remarks="" size="29" type="timestamp" typeCode="93"/>
+         <primaryKey column="film_id" sequenceNumberInPK="1"/>
+         <primaryKey column="category_id" sequenceNumberInPK="2"/>
+         <index name="film_category_pkey" unique="true">
+            <column ascending="true" name="film_id"/>
+            <column ascending="true" name="category_id"/>
+         </index>
+      </table>
+      <table name="film_list" numRows="0" remarks="" schema="public" type="VIEW" viewSql=" SELECT film.film_id AS fid,&#10;    film.title,&#10;    film.description,&#10;    category.name AS category,&#10;    film.rental_rate AS price,&#10;    film.length,&#10;    film.rating,&#10;    group_concat((((actor.first_name)::text || ' '::text) || (actor.last_name)::text)) AS actors&#10;   FROM ((((category&#10;     LEFT JOIN film_category ON ((category.category_id = film_category.category_id)))&#10;     LEFT JOIN film ON ((film_category.film_id = film.film_id)))&#10;     JOIN film_actor ON ((film.film_id = film_actor.film_id)))&#10;     JOIN actor ON ((film_actor.actor_id = actor.actor_id)))&#10;  GROUP BY film.film_id, film.title, film.description, category.name, film.rental_rate, film.length, film.rating;">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="fid" nullable="true" remarks="" size="10" type="int4" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="title" nullable="true" remarks="" size="255" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="description" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="category" nullable="true" remarks="" size="25" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="2" id="4" name="price" nullable="true" remarks="" size="4" type="numeric" typeCode="2"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="5" name="length" nullable="true" remarks="" size="5" type="int2" typeCode="5"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="6" name="rating" nullable="true" remarks="" size="2147483647" type="mpaa_rating" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="7" name="actors" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+      </table>
+      <table name="inventory" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('inventory_inventory_id_seq'::regclass)" digits="0" id="0" name="inventory_id" nullable="false" remarks="" size="10" type="serial" typeCode="4">
+            <child column="inventory_id" foreignKey="rental_inventory_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="rental"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="film_id" nullable="false" remarks="" size="5" type="int2" typeCode="5">
+            <parent column="film_id" foreignKey="inventory_film_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="film"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="store_id" nullable="false" remarks="" size="5" type="int2" typeCode="5"/>
+         <column autoUpdated="false" defaultValue="now()" digits="6" id="3" name="last_update" nullable="false" remarks="" size="29" type="timestamp" typeCode="93"/>
+         <primaryKey column="inventory_id" sequenceNumberInPK="1"/>
+         <index name="inventory_pkey" unique="true">
+            <column ascending="true" name="inventory_id"/>
+         </index>
+         <index name="idx_store_id_film_id" unique="false">
+            <column ascending="true" name="store_id"/>
+            <column ascending="true" name="film_id"/>
+         </index>
+      </table>
+      <table name="language" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('language_language_id_seq'::regclass)" digits="0" id="0" name="language_id" nullable="false" remarks="" size="10" type="serial" typeCode="4">
+            <child column="language_id" foreignKey="film_language_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="film"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="name" nullable="false" remarks="" size="20" type="bpchar" typeCode="1"/>
+         <column autoUpdated="false" defaultValue="now()" digits="6" id="2" name="last_update" nullable="false" remarks="" size="29" type="timestamp" typeCode="93"/>
+         <primaryKey column="language_id" sequenceNumberInPK="1"/>
+         <index name="language_pkey" unique="true">
+            <column ascending="true" name="language_id"/>
+         </index>
+      </table>
+      <table name="nicer_but_slower_film_list" numRows="0" remarks="" schema="public" type="VIEW" viewSql=" SELECT film.film_id AS fid,&#10;    film.title,&#10;    film.description,&#10;    category.name AS category,&#10;    film.rental_rate AS price,&#10;    film.length,&#10;    film.rating,&#10;    group_concat((((upper(&quot;substring&quot;((actor.first_name)::text, 1, 1)) || lower(&quot;substring&quot;((actor.first_name)::text, 2))) || upper(&quot;substring&quot;((actor.last_name)::text, 1, 1))) || lower(&quot;substring&quot;((actor.last_name)::text, 2)))) AS actors&#10;   FROM ((((category&#10;     LEFT JOIN film_category ON ((category.category_id = film_category.category_id)))&#10;     LEFT JOIN film ON ((film_category.film_id = film.film_id)))&#10;     JOIN film_actor ON ((film.film_id = film_actor.film_id)))&#10;     JOIN actor ON ((film_actor.actor_id = actor.actor_id)))&#10;  GROUP BY film.film_id, film.title, film.description, category.name, film.rental_rate, film.length, film.rating;">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="fid" nullable="true" remarks="" size="10" type="int4" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="title" nullable="true" remarks="" size="255" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="description" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="category" nullable="true" remarks="" size="25" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="2" id="4" name="price" nullable="true" remarks="" size="4" type="numeric" typeCode="2"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="5" name="length" nullable="true" remarks="" size="5" type="int2" typeCode="5"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="6" name="rating" nullable="true" remarks="" size="2147483647" type="mpaa_rating" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="7" name="actors" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+      </table>
+      <table name="payment" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('payment_payment_id_seq'::regclass)" digits="0" id="0" name="payment_id" nullable="false" remarks="" size="10" type="serial" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="customer_id" nullable="false" remarks="" size="5" type="int2" typeCode="5">
+            <parent column="customer_id" foreignKey="payment_customer_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="customer"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="staff_id" nullable="false" remarks="" size="5" type="int2" typeCode="5">
+            <parent column="staff_id" foreignKey="payment_staff_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="staff"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="rental_id" nullable="false" remarks="" size="10" type="int4" typeCode="4">
+            <parent column="rental_id" foreignKey="payment_rental_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="rental"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="2" id="4" name="amount" nullable="false" remarks="" size="5" type="numeric" typeCode="2"/>
+         <column autoUpdated="false" defaultValue="null" digits="6" id="5" name="payment_date" nullable="false" remarks="" size="29" type="timestamp" typeCode="93"/>
+         <primaryKey column="payment_id" sequenceNumberInPK="1"/>
+         <index name="payment_pkey" unique="true">
+            <column ascending="true" name="payment_id"/>
+         </index>
+         <index name="idx_fk_customer_id" unique="false">
+            <column ascending="true" name="customer_id"/>
+         </index>
+         <index name="idx_fk_rental_id" unique="false">
+            <column ascending="true" name="rental_id"/>
+         </index>
+         <index name="idx_fk_staff_id" unique="false">
+            <column ascending="true" name="staff_id"/>
+         </index>
+      </table>
+      <table name="rental" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('rental_rental_id_seq'::regclass)" digits="0" id="0" name="rental_id" nullable="false" remarks="" size="10" type="serial" typeCode="4">
+            <child column="rental_id" foreignKey="payment_rental_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="payment"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="6" id="1" name="rental_date" nullable="false" remarks="" size="29" type="timestamp" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="inventory_id" nullable="false" remarks="" size="10" type="int4" typeCode="4">
+            <parent column="inventory_id" foreignKey="rental_inventory_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="inventory"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="customer_id" nullable="false" remarks="" size="5" type="int2" typeCode="5">
+            <parent column="customer_id" foreignKey="rental_customer_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="customer"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="6" id="4" name="return_date" nullable="true" remarks="" size="29" type="timestamp" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="5" name="staff_id" nullable="false" remarks="" size="5" type="int2" typeCode="5">
+            <parent column="staff_id" foreignKey="rental_staff_id_key" implied="false" onDeleteCascade="false" schema="public" table="staff"/>
+         </column>
+         <column autoUpdated="false" defaultValue="now()" digits="6" id="6" name="last_update" nullable="false" remarks="" size="29" type="timestamp" typeCode="93"/>
+         <primaryKey column="rental_id" sequenceNumberInPK="1"/>
+         <index name="rental_pkey" unique="true">
+            <column ascending="true" name="rental_id"/>
+         </index>
+         <index name="idx_fk_inventory_id" unique="false">
+            <column ascending="true" name="inventory_id"/>
+         </index>
+         <index name="idx_unq_rental_rental_date_inventory_id_customer_id" unique="true">
+            <column ascending="true" name="rental_date"/>
+            <column ascending="true" name="inventory_id"/>
+            <column ascending="true" name="customer_id"/>
+         </index>
+      </table>
+      <table name="sales_by_film_category" numRows="0" remarks="" schema="public" type="VIEW" viewSql=" SELECT c.name AS category,&#10;    sum(p.amount) AS total_sales&#10;   FROM (((((payment p&#10;     JOIN rental r ON ((p.rental_id = r.rental_id)))&#10;     JOIN inventory i ON ((r.inventory_id = i.inventory_id)))&#10;     JOIN film f ON ((i.film_id = f.film_id)))&#10;     JOIN film_category fc ON ((f.film_id = fc.film_id)))&#10;     JOIN category c ON ((fc.category_id = c.category_id)))&#10;  GROUP BY c.name&#10;  ORDER BY (sum(p.amount)) DESC;">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="category" nullable="true" remarks="" size="25" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="total_sales" nullable="true" remarks="" size="131089" type="numeric" typeCode="2"/>
+      </table>
+      <table name="sales_by_store" numRows="0" remarks="" schema="public" type="VIEW" viewSql=" SELECT (((c.city)::text || ','::text) || (cy.country)::text) AS store,&#10;    (((m.first_name)::text || ' '::text) || (m.last_name)::text) AS manager,&#10;    sum(p.amount) AS total_sales&#10;   FROM (((((((payment p&#10;     JOIN rental r ON ((p.rental_id = r.rental_id)))&#10;     JOIN inventory i ON ((r.inventory_id = i.inventory_id)))&#10;     JOIN store s ON ((i.store_id = s.store_id)))&#10;     JOIN address a ON ((s.address_id = a.address_id)))&#10;     JOIN city c ON ((a.city_id = c.city_id)))&#10;     JOIN country cy ON ((c.country_id = cy.country_id)))&#10;     JOIN staff m ON ((s.manager_staff_id = m.staff_id)))&#10;  GROUP BY cy.country, c.city, s.store_id, m.first_name, m.last_name&#10;  ORDER BY cy.country, c.city;">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="store" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="manager" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="total_sales" nullable="true" remarks="" size="131089" type="numeric" typeCode="2"/>
+      </table>
+      <table name="staff" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('staff_staff_id_seq'::regclass)" digits="0" id="0" name="staff_id" nullable="false" remarks="" size="10" type="serial" typeCode="4">
+            <child column="staff_id" foreignKey="payment_staff_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="payment"/>
+            <child column="staff_id" foreignKey="rental_staff_id_key" implied="false" onDeleteCascade="false" schema="public" table="rental"/>
+            <child column="manager_staff_id" foreignKey="store_manager_staff_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="store"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="first_name" nullable="false" remarks="" size="45" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="last_name" nullable="false" remarks="" size="45" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="address_id" nullable="false" remarks="" size="5" type="int2" typeCode="5">
+            <parent column="address_id" foreignKey="staff_address_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="address"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="email" nullable="true" remarks="" size="50" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="5" name="store_id" nullable="false" remarks="" size="5" type="int2" typeCode="5"/>
+         <column autoUpdated="false" defaultValue="true" digits="0" id="6" name="active" nullable="false" remarks="" size="1" type="bool" typeCode="-7"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="7" name="username" nullable="false" remarks="" size="16" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="8" name="password" nullable="true" remarks="" size="40" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="now()" digits="6" id="9" name="last_update" nullable="false" remarks="" size="29" type="timestamp" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="10" name="picture" nullable="true" remarks="" size="2147483647" type="bytea" typeCode="-2"/>
+         <primaryKey column="staff_id" sequenceNumberInPK="1"/>
+         <index name="staff_pkey" unique="true">
+            <column ascending="true" name="staff_id"/>
+         </index>
+      </table>
+      <table name="staff_list" numRows="0" remarks="" schema="public" type="VIEW" viewSql=" SELECT s.staff_id AS id,&#10;    (((s.first_name)::text || ' '::text) || (s.last_name)::text) AS name,&#10;    a.address,&#10;    a.postal_code AS &quot;zip code&quot;,&#10;    a.phone,&#10;    city.city,&#10;    country.country,&#10;    s.store_id AS sid&#10;   FROM (((staff s&#10;     JOIN address a ON ((s.address_id = a.address_id)))&#10;     JOIN city ON ((a.city_id = city.city_id)))&#10;     JOIN country ON ((city.country_id = country.country_id)));">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="id" nullable="true" remarks="" size="10" type="int4" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="name" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="address" nullable="true" remarks="" size="50" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="zip code" nullable="true" remarks="" size="10" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="phone" nullable="true" remarks="" size="20" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="5" name="city" nullable="true" remarks="" size="50" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="6" name="country" nullable="true" remarks="" size="50" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="7" name="sid" nullable="true" remarks="" size="5" type="int2" typeCode="5"/>
+      </table>
+      <table name="store" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('store_store_id_seq'::regclass)" digits="0" id="0" name="store_id" nullable="false" remarks="" size="10" type="serial" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="manager_staff_id" nullable="false" remarks="" size="5" type="int2" typeCode="5">
+            <parent column="staff_id" foreignKey="store_manager_staff_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="staff"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="address_id" nullable="false" remarks="" size="5" type="int2" typeCode="5">
+            <parent column="address_id" foreignKey="store_address_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="address"/>
+         </column>
+         <column autoUpdated="false" defaultValue="now()" digits="6" id="3" name="last_update" nullable="false" remarks="" size="29" type="timestamp" typeCode="93"/>
+         <primaryKey column="store_id" sequenceNumberInPK="1"/>
+         <index name="store_pkey" unique="true">
+            <column ascending="true" name="store_id"/>
+         </index>
+         <index name="idx_unq_manager_staff_id" unique="true">
+            <column ascending="true" name="manager_staff_id"/>
+         </index>
+      </table>
+   </tables>
+   <routines>
+      <routine dataAccess="MODIFIES" deterministic="true" name="_group_concat" returnType="text" securityType="INVOKER" type="FUNCTION">
+         <comment/>
+         <definition language="SQL">
+            <![CDATA[
+SELECT CASE
+  WHEN $2 IS NULL THEN $1
+  WHEN $1 IS NULL THEN $2
+  ELSE $1 || ', ' || $2
+END
+]]>
+         </definition>
+      </routine>
+      <routine dataAccess="MODIFIES" deterministic="false" name="film_in_stock" returnType="SETOF integer" securityType="INVOKER" type="FUNCTION">
+         <comment/>
+         <definition language="SQL">
+            <![CDATA[
+     SELECT inventory_id
+     FROM inventory
+     WHERE film_id = $1
+     AND store_id = $2
+     AND inventory_in_stock(inventory_id);
+]]>
+         </definition>
+      </routine>
+      <routine dataAccess="MODIFIES" deterministic="false" name="film_not_in_stock" returnType="SETOF integer" securityType="INVOKER" type="FUNCTION">
+         <comment/>
+         <definition language="SQL">
+            <![CDATA[
+    SELECT inventory_id
+    FROM inventory
+    WHERE film_id = $1
+    AND store_id = $2
+    AND NOT inventory_in_stock(inventory_id);
+]]>
+         </definition>
+      </routine>
+      <routine dataAccess="MODIFIES" deterministic="false" name="get_customer_balance" returnType="numeric" securityType="INVOKER" type="FUNCTION">
+         <comment/>
+         <definition language="PLPGSQL">
+            <![CDATA[
+       --#OK, WE NEED TO CALCULATE THE CURRENT BALANCE GIVEN A CUSTOMER_ID AND A DATE
+       --#THAT WE WANT THE BALANCE TO BE EFFECTIVE FOR. THE BALANCE IS:
+       --#   1) RENTAL FEES FOR ALL PREVIOUS RENTALS
+       --#   2) ONE DOLLAR FOR EVERY DAY THE PREVIOUS RENTALS ARE OVERDUE
+       --#   3) IF A FILM IS MORE THAN RENTAL_DURATION * 2 OVERDUE, CHARGE THE REPLACEMENT_COST
+       --#   4) SUBTRACT ALL PAYMENTS MADE BEFORE THE DATE SPECIFIED
+DECLARE
+    v_rentfees DECIMAL(5,2); --#FEES PAID TO RENT THE VIDEOS INITIALLY
+    v_overfees INTEGER;      --#LATE FEES FOR PRIOR RENTALS
+    v_payments DECIMAL(5,2); --#SUM OF PAYMENTS MADE PREVIOUSLY
+BEGIN
+    SELECT COALESCE(SUM(film.rental_rate),0) INTO v_rentfees
+    FROM film, inventory, rental
+    WHERE film.film_id = inventory.film_id
+      AND inventory.inventory_id = rental.inventory_id
+      AND rental.rental_date <= p_effective_date
+      AND rental.customer_id = p_customer_id;
+
+    SELECT COALESCE(SUM(IF((rental.return_date - rental.rental_date) > (film.rental_duration * '1 day'::interval),
+        ((rental.return_date - rental.rental_date) - (film.rental_duration * '1 day'::interval)),0)),0) INTO v_overfees
+    FROM rental, inventory, film
+    WHERE film.film_id = inventory.film_id
+      AND inventory.inventory_id = rental.inventory_id
+      AND rental.rental_date <= p_effective_date
+      AND rental.customer_id = p_customer_id;
+
+    SELECT COALESCE(SUM(payment.amount),0) INTO v_payments
+    FROM payment
+    WHERE payment.payment_date <= p_effective_date
+    AND payment.customer_id = p_customer_id;
+
+    RETURN v_rentfees + v_overfees - v_payments;
+END
+]]>
+         </definition>
+      </routine>
+      <routine dataAccess="MODIFIES" deterministic="true" name="group_concat" returnType="text" securityType="INVOKER" type="AGGREGATE">
+         <comment/>
+         <definition language="INTERNAL">
+            <![CDATA[aggregate_dummy]]>
+         </definition>
+      </routine>
+      <routine dataAccess="MODIFIES" deterministic="false" name="inventory_held_by_customer" returnType="integer" securityType="INVOKER" type="FUNCTION">
+         <comment/>
+         <definition language="PLPGSQL">
+            <![CDATA[
+DECLARE
+    v_customer_id INTEGER;
+BEGIN
+
+  SELECT customer_id INTO v_customer_id
+  FROM rental
+  WHERE return_date IS NULL
+  AND inventory_id = p_inventory_id;
+
+  RETURN v_customer_id;
+END ]]>
+         </definition>
+      </routine>
+      <routine dataAccess="MODIFIES" deterministic="false" name="inventory_in_stock" returnType="boolean" securityType="INVOKER" type="FUNCTION">
+         <comment/>
+         <definition language="PLPGSQL">
+            <![CDATA[
+DECLARE
+    v_rentals INTEGER;
+    v_out     INTEGER;
+BEGIN
+    -- AN ITEM IS IN-STOCK IF THERE ARE EITHER NO ROWS IN THE rental TABLE
+    -- FOR THE ITEM OR ALL ROWS HAVE return_date POPULATED
+
+    SELECT count(*) INTO v_rentals
+    FROM rental
+    WHERE inventory_id = p_inventory_id;
+
+    IF v_rentals = 0 THEN
+      RETURN TRUE;
+    END IF;
+
+    SELECT COUNT(rental_id) INTO v_out
+    FROM inventory LEFT JOIN rental USING(inventory_id)
+    WHERE inventory.inventory_id = p_inventory_id
+    AND rental.return_date IS NULL;
+
+    IF v_out > 0 THEN
+      RETURN FALSE;
+    ELSE
+      RETURN TRUE;
+    END IF;
+END ]]>
+         </definition>
+      </routine>
+      <routine dataAccess="MODIFIES" deterministic="true" name="last_day" returnType="date" securityType="INVOKER" type="FUNCTION">
+         <comment/>
+         <definition language="SQL">
+            <![CDATA[
+  SELECT CASE
+    WHEN EXTRACT(MONTH FROM $1) = 12 THEN
+      (((EXTRACT(YEAR FROM $1) + 1) operator(pg_catalog.||) '-01-01')::date - INTERVAL '1 day')::date
+    ELSE
+      ((EXTRACT(YEAR FROM $1) operator(pg_catalog.||) '-' operator(pg_catalog.||) (EXTRACT(MONTH FROM $1) + 1) operator(pg_catalog.||) '-01')::date - INTERVAL '1 day')::date
+    END
+]]>
+         </definition>
+      </routine>
+      <routine dataAccess="MODIFIES" deterministic="false" name="last_updated" returnType="trigger" securityType="INVOKER" type="FUNCTION">
+         <comment/>
+         <definition language="PLPGSQL">
+            <![CDATA[
+BEGIN
+    NEW.last_update = CURRENT_TIMESTAMP;
+    RETURN NEW;
+END ]]>
+         </definition>
+      </routine>
+      <routine dataAccess="MODIFIES" deterministic="false" name="rewards_report" returnType="SETOF customer" securityType="DEFINER" type="FUNCTION">
+         <comment/>
+         <definition language="PLPGSQL">
+            <![CDATA[
+DECLARE
+    last_month_start DATE;
+    last_month_end DATE;
+rr RECORD;
+tmpSQL TEXT;
+BEGIN
+
+    /* Some sanity checks... */
+    IF min_monthly_purchases = 0 THEN
+        RAISE EXCEPTION 'Minimum monthly purchases parameter must be > 0';
+    END IF;
+    IF min_dollar_amount_purchased = 0.00 THEN
+        RAISE EXCEPTION 'Minimum monthly dollar amount purchased parameter must be > $0.00';
+    END IF;
+
+    last_month_start := CURRENT_DATE - '3 month'::interval;
+    last_month_start := to_date((extract(YEAR FROM last_month_start) || '-' || extract(MONTH FROM last_month_start) || '-01'),'YYYY-MM-DD');
+    last_month_end := LAST_DAY(last_month_start);
+
+    /*
+    Create a temporary storage area for Customer IDs.
+    */
+    CREATE TEMPORARY TABLE tmpCustomer (customer_id INTEGER NOT NULL PRIMARY KEY);
+
+    /*
+    Find all customers meeting the monthly purchase requirements
+    */
+
+    tmpSQL := 'INSERT INTO tmpCustomer (customer_id)
+        SELECT p.customer_id
+        FROM payment AS p
+        WHERE DATE(p.payment_date) BETWEEN '||quote_literal(last_month_start) ||' AND '|| quote_literal(last_month_end) || '
+        GROUP BY customer_id
+        HAVING SUM(p.amount) > '|| min_dollar_amount_purchased || '
+        AND COUNT(customer_id) > ' ||min_monthly_purchases ;
+
+    EXECUTE tmpSQL;
+
+    /*
+    Output ALL customer information of matching rewardees.
+    Customize output as needed.
+    */
+    FOR rr IN EXECUTE 'SELECT c.* FROM tmpCustomer AS t INNER JOIN customer AS c ON t.customer_id = c.customer_id' LOOP
+        RETURN NEXT rr;
+    END LOOP;
+
+    /* Clean up */
+    tmpSQL := 'DROP TABLE tmpCustomer';
+    EXECUTE tmpSQL;
+
+RETURN;
+END
+]]>
+         </definition>
+      </routine>
+   </routines>
+</database>
