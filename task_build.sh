@@ -1,16 +1,16 @@
 #!/usr/bin/env bash
 
+source task_config.sh
+
 REQUIRED_TOOLS=(
   "java"
 )
 
-DOTFILE=".env"
 SCHEMASPY_JAR="lib/schemaspy/schemaspy-6.1.0.jar"
 # Run: java -jar lib/schemaspy/schemaspy-6.1.0.jar -dbhelp
 # Even though we are connecting to Postgres version 13, the highest database type listed is pgsql11 ... shrug
 DATABASE_TYPE="pgsql11"
 JDBC_DRIVERS="lib/driver"
-DIR="output"
 
 for tool in ${REQUIRED_TOOLS[@]}; do
   if ! command -v ${tool} >/dev/null; then

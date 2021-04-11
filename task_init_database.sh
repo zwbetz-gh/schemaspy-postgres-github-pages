@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-DOTFILE=".env"
+source task_config.sh
 
 if [[ ! -f ${DOTFILE} ]]; then
   echo "File ${DOTFILE} is required ..."

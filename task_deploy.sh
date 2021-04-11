@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+source task_config.sh
+
 REQUIRED_TOOLS=(
   "ghp-import"
 )
@@ -7,7 +9,6 @@ REQUIRED_TOOLS=(
 CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
 MAIN_BRANCH="main"
 
-DIR="output"
 HASH=$(git rev-parse --short HEAD)
 COMMIT_MSG="Deploy git hash ${HASH}"
 

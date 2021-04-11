@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-DIR="output"
+source task_config.sh
 
 echo "Deleting dir ${DIR} ..."
 

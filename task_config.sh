@@ -1,0 +1,2 @@
+DOTFILE=".env"
+DIR="output"
