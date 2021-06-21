@@ -16,22 +16,7 @@
 1. Copy file `.env.sample` to file `.env`
 1. If needed, change the database connection values in file `.env`
 
-**Note:** There's no need to download the SchemaSpy or Postgres driver `.jar` files. They're included under the `lib` dir
-
-## Setup Sample Database
-
-1. Spin up Postgres
-   ```
-   docker-compose up --build -d
-   ```
-1. Init the database
-    ```
-    docker-compose run postgres ./task_init_database.sh
-    ```
-1. View Postgres logs
-    ```
-    docker-compose logs postgres
-    ```
+**Note:** There's no need to download the SchemaSpy or mssql driver `.jar` files. They're included under the `lib` dir
 
 ## Build SchemaSpy
 
@@ -54,4 +39,3 @@
 ## Credits
 
 - Thank you to [@morenoh149](https://github.com/morenoh149) for the sample [pagila](https://github.com/morenoh149/postgresDBSamples/tree/master/pagila-0.10.1) database
-  

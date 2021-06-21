@@ -6,10 +6,9 @@ REQUIRED_TOOLS=(
   "java"
 )
 
-SCHEMASPY_JAR="lib/schemaspy/schemaspy-6.1.0.jar"
-# Run: java -jar lib/schemaspy/schemaspy-6.1.0.jar -dbhelp
-# Even though we are connecting to Postgres version 13, the highest database type listed is pgsql11 ... shrug
-DATABASE_TYPE="pgsql11"
+SCHEMASPY_JAR="lib/schemaspy/schemaspy-6.1.1-SNAPSHOT.jar"
+# Run: java -jar lib/schemaspy/schemaspy-6.1.1-SNAPSHOT.jar -dbhelp
+DATABASE_TYPE="mssql17"
 JDBC_DRIVERS="lib/driver"
 
 for tool in ${REQUIRED_TOOLS[@]}; do
@@ -33,12 +32,12 @@ java -jar ${SCHEMASPY_JAR} \
 -nopages \
 -t ${DATABASE_TYPE} \
 -dp ${JDBC_DRIVERS} \
--host ${PGHOST_LOCAL} \
--port ${PGPORT_LOCAL} \
--db ${PGDATABASE} \
--s ${PGSCHEMA} \
--u ${PGUSER} \
--p ${PGPASSWORD} \
+-host ${DB_HOST_LOCAL} \
+-port ${DOCS_PORT_LOCAL} \
+-db ${DBNAME} \
+-s ${DB_SCHEMA} \
+-u ${DBUSER} \
+-p ${DBPASSWORD} \
 -o ${DIR}
 
 echo "Completed ${0} in ${SECONDS}s"
